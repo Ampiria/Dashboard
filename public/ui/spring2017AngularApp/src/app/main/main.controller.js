@@ -11,6 +11,12 @@
 
     vm.hideNavButton = true;
     vm.awesomeThings = [];
+
+    vm.startStopButton = 'Start';
+    vm.startButtonBoolean = true;
+
+    vm.displayTime = false;
+
     vm.classAnimation = 'pulse';
     vm.creationDate = 1491050677551;
     vm.showToastr = showToastr;
@@ -22,9 +28,49 @@
     vm.clickAddChartOption = changeClickAddOption.setYAxisTitle('Productivity');
     vm.clickAddChartOption = changeClickAddOption.setChartTitle('Performance');
 
+    vm.hour = 0;
+    vm.minute = 0;
+    vm.second = 0;
+
+
+
     // getData();
     //
     // activate();
+
+    vm.clickStart = function () {
+      vm.startButtonBoolean = !vm.startButtonBoolean;
+      if (vm.startStopButton === 'Start') {
+        vm.startStopButton = 'Stop';
+        vm.displayTime = true;
+
+        vm.setInterval = setInterval(function () {
+          $scope.$apply(function () {
+            vm.second ++;
+
+            if (vm.second > 59) {
+              vm.second = 0;
+              vm.minute ++;
+            }
+
+            if (vm.minute > 59) {
+              vm.minute = 0;
+              vm.hour ++;
+            }
+
+            // vm.time = " " + vm.hour + "h : " + vm.minute + "m : " + vm.second + "s";
+          });
+        }, 1000);
+      } else {
+        vm.hour = 0;
+        vm.minute = 0;
+        vm.second = 0;
+        clearInterval(vm.setInterval);
+        vm.displayTime = false;
+        vm.startStopButton = 'Start';
+      }
+      console.log('Clicked');
+    };
 
     vm.logInModal = function () {
       $uibModal.open({

@@ -13,5 +13,6 @@
     vm.closeModal = function () {
       $uibModalInstance.dismiss('cancel');
     }
+
   }
 })();

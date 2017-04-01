@@ -32,7 +32,7 @@
   <div class="col-md-9">
     <div id="sidebar-wrapper">
       <ul class="sidebar-nav">
-        <div class="pull-right" style="margin-left: 10px; margin-bottom: 20px">
+        <div class="" style="margin-left: 10px; margin-bottom: 20px">
           <button class="btn btn-success" ng-click="main.toggleSideBar()"> <i class="fa fa-bars"></i> </button>
         </div>
 
@@ -49,6 +49,16 @@
               <p class="animate infinite" ng-class="">
                 <button type="button" class="btn btn-sm btn-info" ng-click="main.logInModal()"> <span class="fa fa-sign-in" ></span> Login</button>
                 <button type="button" class="btn btn-sm btn-info" ng-click="main.registerModal()"> <span class="fa fa-registered" aria-hidden="true"></span> Register</button>
+              <div class="text-center" style="color: white; margin-top: 10px">
+                <button type="button"  data-toggle="collapse" data-target="#demo"
+                        ng-class="['btn', 'btn-lg', {'btn-info': main.startButtonBoolean}, {'btn-danger': !main.startButtonBoolean}]"
+                        ng-click="main.clickStart()" style="width: 70%;">
+                  {{main.startStopButton}}<span style="font-size: large" ng-show="main.displayTime"> {{main.hour}}H : {{main.minute}}M : {{main.second}}s</span>
+                </button>
+
+                <div id="demo" class="collapse" style="color: white;">
+                </div>
+              </div>
               </p>
               <p style="">
                 <acme-malarkey extra-values="['Quick', 'Adaptive', 'Flexible']"></acme-malarkey>
@@ -57,26 +67,20 @@
 
           </li>
 
-          <li>
-            <a ui-sref="home.dashboard" ui-sref-active="active" style="font-size: 17px"><i class="fa fa-superpowers" style="color: #00b3ee;"></i> Dashboard </a>
-          </li>
-          <li>
-            <a ui-sref="home.studyMatching" ui-sref-active="active" style="font-size: 17px"> <i class="fa fa-users" style="color: #FFFFAD;"> </i> Study Matching</a>
-          </li>
-          <li>
-            <a href="#" style="font-size: 17px"> <i class="fa fa-line-chart" style="color: #4AA02C;"></i> My Goals</a>
-          </li>
+        <li>
+          <a ui-sref="home.dashboard" ui-sref-active="active" style="font-size: 17px"><i class="fa fa-superpowers" style="color: #00b3ee;"></i> Dashboard </a>
+        </li>
+        <li>
+          <a ui-sref="home.studyMatching" ui-sref-active="active" style="font-size: 17px"> <i class="fa fa-users" style="color: #FFFFAD;"> </i> Study Matching</a>
+        </li>
+        <li>
+          <a href="#" style="font-size: 17px"> <i class="fa fa-line-chart" style="color: #4AA02C;"></i> My Goals</a>
+        </li>
 
-          <div class="text-center" style="color: white; ">
-             <button type="button" class="btn btn-success btn-lg" data-toggle="collapse" data-target="#demo">Start</button>
-             <button type="button" class="btn btn-danger btn-lg">Stop</button>
-             <div id="demo" class="collapse" style="color: white;">
-            </div>
-          </div>
 
-          <!--<li class="pull-down">-->
-          <!--<button style="">Something</button>-->
-          <!--</li>-->
+        <!--<li class="pull-down">-->
+        <!--<button style="">Something</button>-->
+        <!--</li>-->
       </ul>
     </div>
     <div style="" ng-hide="main.hideNavButton">

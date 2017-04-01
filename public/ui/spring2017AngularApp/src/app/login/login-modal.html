@@ -1,29 +1,27 @@
 <button class="btn btn-danger btn-sm" style="float: right;" ng-click="vm.closeModal()">&times;</button>
 <div class="container" style="clear: both; margin-left: 30%; margin-bottom: 50px">
-    <div class="row">
-        <div class="col-md-4">
-            <div class="page-header">
-                <h2>Login</h2>
-            </div>
-            <form role="form" method="post" action="http://www.jgdodson.com/users/add">
-                <div class="form-group">
-                     <label for="email" class="sr-only">Username</label>
-                     <div class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                        <input id="username" name="username" type="text" class="form-control" placeholder="Username">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="password" class="sr-only">Password</label>
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                        <input id="password" name="password" type="password" class="form-control" placeholder="Password">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary">Login</button>
-                </div>
-            </form>
+  <div class="row">
+    <div class="col-md-4">
+      <div class="page-header">
+        <h2>Login</h2>
+      </div>
+      <div class="form-group">
+        <label for="email" class="sr-only">Username</label>
+        <div class="input-group">
+          <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+          <input id="username" name="username" type="text" class="form-control" placeholder="Username" ng-model="">
         </div>
+      </div>
+      <div class="form-group">
+        <label for="password" class="sr-only">Password</label>
+        <div class="input-group">
+          <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+          <input id="password" name="password" type="password" class="form-control" placeholder="Password">
+        </div>
+      </div>
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary">Login</button>
+      </div>
     </div>
+  </div>
 </div>
