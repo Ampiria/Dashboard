@@ -6,7 +6,7 @@
     .controller('MainController', MainController);
 
   /** @ngInject */
-  function MainController($timeout, webDevTec, toastr, highChartService, Restangular, $uibModal) {
+  function MainController($timeout, webDevTec, toastr, highChartService, Restangular, $uibModal, $scope) {
     var vm = this;
 
     vm.awesomeThings = [];
@@ -34,13 +34,14 @@
         controller: 'LogInController',
         controllerAs: 'vm',
         size: 'lg',
+        scope: $scope,
         resolve: {
         }
       });
     };
 
     vm.registerModal = function () {
-      $uibModal.open({
+      var modalInstance = $uibModal.open({
         animation: true,
         ariaLabelledBy: 'Login',
         ariaDescribedBy: 'modal-body',

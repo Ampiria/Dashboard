@@ -8,7 +8,10 @@
   angular.module('spring2017AngularApp')
     .controller('LogInController', LogInController)
 
-  function LogInController() {
-
+  function LogInController($uibModal, $scope, $uibModalInstance) {
+    var vm = this;
+    vm.closeModal = function () {
+      $uibModalInstance.dismiss('cancel');
+    }
   }
 })();

@@ -9,7 +9,10 @@
   angular.module('spring2017AngularApp')
     .controller('RegisterController', RegisterController)
 
-  function RegisterController() {
-
+  function RegisterController($uibModalInstance) {
+    var vm = this;
+    vm.closeModal = function () {
+      $uibModalInstance.dismiss('cancel');
+    }
   }
 })();
