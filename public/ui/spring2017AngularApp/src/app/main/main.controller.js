@@ -9,6 +9,7 @@
   function MainController($timeout, webDevTec, toastr, highChartService, Restangular, $uibModal, $scope) {
     var vm = this;
 
+    vm.hideNavButton = true;
     vm.awesomeThings = [];
     vm.classAnimation = 'pulse';
     vm.creationDate = 1491050677551;
@@ -54,8 +55,10 @@
       });
     };
 
+    getData();
+
     function getData() {
-      Restangular.oneUrl('data', 'http://www.jgdodson.com/json/sessions/jgdodson').getList().then(function (resp) {
+      Restangular.oneUrl('data', 'http://www.jgdodson.com/json/sessions/bobby').get().then(function (resp) {
         console.log("Data: ");
         console.log(resp);
       }, function () {
@@ -85,6 +88,19 @@
 
     vm.toggleSideBar = function () {
       $('#wrapper').toggleClass('toggled');
+      if (vm.hideNavButton) {
+        setTimeout(function () {
+          $scope.$apply(function () {
+            vm.hideNavButton = false;
+          });
+        }, 100);
+      } else {
+        setTimeout(function () {
+          $scope.$apply(function () {
+            vm.hideNavButton = true;
+          });
+        }, 100);
+      }
     };
   }
 })();

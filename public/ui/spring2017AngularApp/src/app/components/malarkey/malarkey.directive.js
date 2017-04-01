@@ -25,7 +25,7 @@
       var typist = malarkey(el[0], {
         typeSpeed: 40,
         deleteSpeed: 40,
-        pauseDelay: 800,
+        pauseDelay: 3000,
         loop: true,
         postfix: ' '
       });

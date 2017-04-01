@@ -11,7 +11,7 @@
         scope: {
           options: '='
         },
-        template: '<div id="interactiveChart"></div>',
+        template: '<div id="interactiveChart" style="width: 100%"></div>',
         link: function (scope, element, attrs) {
           console.log('Chart Directive');
           console.log(scope.option);
