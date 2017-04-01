@@ -1,0 +1,62 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET         /                               controllers.Application.home
+
+# About page
+GET         /about                          controllers.Application.about
+
+# Link to pdf of resume
+GET         /resume                         controllers.Application.resume
+
+# Go to the quotes page
+GET         /quotes                         controllers.Application.quotes
+
+# Go to the profiles page
+GET         /profiles                       controllers.Application.profiles
+
+# Get sessions as JSON for the username
+GET         /json/sessions/:username        controllers.Sessions.sessionsForUsername(username: String)
+
+# Get quotes as JSON for the username
+GET         /json/quotes/:username          controllers.Quotes.getQuotes(username: String)
+
+# Get profiles as JSON for the username
+GET         /json/profiles/:username        controllers.Users.profilesForUsername(username: String)
+
+# Get the about message as JSON for the username
+GET         /json/about/:username           controllers.Users.aboutMessage(username: String)
+
+# Get the journal entries as JSON for the username
+GET         /json/journal/:username         controllers.JournalEntries.journalEntriesForUsername(username: String)
+
+# Start a study session
+POST        /study/start                    controllers.Sessions.startSession()
+
+# Stop a study session
+POST        /study/stop                     controllers.Sessions.stopSession()
+
+# Abort a study session
+POST        /study/abort                    controllers.Sessions.abortSession()
+
+# Add a study subject
+POST        /study/add                      controllers.Sessions.addSubject()
+
+# Remove a study subject
+POST        /study/remove                   controllers.Sessions.removeSubject()
+
+# Rename a study subject
+POST        /study/rename                   controllers.Sessions.renameSubject()
+
+# Merge one subject into another
+POST        /study/merge                    controllers.Sessions.mergeSubjects()
+
+# Add a journal entry
+POST        /journal/add                    controllers.JournalEntries.addJournalEntry()
+
+# Map static resources from the /public folder to the /assets URL path
+GET         /assets/*file                   controllers.Assets.at(path="/public", file)
+
+    
