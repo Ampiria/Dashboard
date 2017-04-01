@@ -1,0 +1,86 @@
+@(pageTitle: String)(content: Html)
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Jordan G. Dodson - @pageTitle</title>
+
+        <meta name="author" content="Jordan Dodson">
+
+        <meta name="description" content="The digital home of Jordan G. Dodson.">
+
+        <meta name="keywords" content="Blog, Programming, Informatics, Analytics, Computer Science">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <meta charset="UTF-8">
+
+            <!-- Google charts loader -->
+        <script src="https://www.gstatic.com/charts/loader.js" type="text/javascript"></script>
+
+            <!-- Favicon -->
+        <link href="@routes.Assets.at("images/favicon.ico")" rel="icon" type="image/x-icon">
+
+            <!-- Roboto font from Google -->
+        <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet" type="text/css">
+
+            <!-- Bootstrap -->
+        <link href="@routes.Assets.at("stylesheets/bootstrap/3.3.6/css/bootstrap.min.css")" rel="stylesheet" type="text/css">
+
+            <!-- Font awesome -->
+        <link href="@routes.Assets.at("stylesheets/font-awesome/4.7.0/css/font-awesome.css")" rel="stylesheet" type="text/css">
+
+            <!-- Static assets -->
+        <link href="@routes.Assets.at("stylesheets/main.css")" rel="stylesheet" type="text/css">
+
+            <!-- Google Analytics -->
+        <script src="@routes.Assets.at("javascripts/googleAnalytics.js")" type="text/javascript"></script>
+    </head>
+    <body>
+
+            <!-- Navbar with links to other pages on the site-->
+        <nav class="navbar navbar-inverse navbar-margin-bottom">
+
+            <div class="container-fluid">
+
+                    <!-- Link to the homepage -->
+                <div class="navbar-header">
+                    <a href="@routes.Application.home()" class="navbar-brand" hreflang="en">Jordan G. Dodson</a>
+                </div>
+
+                <div class="collapse navbar-collapse">
+
+                        <!-- Links to other pages on the site-->
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="@routes.Application.resume()" hreflang="en">Resume</a></li>
+
+                        <li><a href="@routes.Application.quotes()" hreflang="en">Quotes</a></li>
+
+                        <li><a href="@routes.Application.profiles()" hreflang="en">Profiles</a></li>
+
+                        <li><a href="@routes.Application.about()" hreflang="en">About</a></li>
+                    </ul>
+
+                </div>
+
+            </div>
+        </nav>
+
+            <!-- Primary page content -->
+        @content
+
+            <!-- Footer with the guiding quote of this site-->
+        <footer>
+            <div class="footer-quote">
+                The unexamined life is not worth living
+            </div>
+        </footer>
+
+            <!-- A message to fellow developers-->
+        <script>
+                console.log(
+                        "If you're reading this, I assume you to be a fellow developer. Welcome! If you see something that could be improved, I'd love the feedback :)"
+                );
+        </script>
+    </body>
+</html>
