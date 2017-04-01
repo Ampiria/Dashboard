@@ -1,5 +1,16 @@
 // TODO: Probability distribution of session length (total and per-subject)
 // TODO: Probability distribution of daily total (total and per-subject)
+// 
+//
+// [{
+//      x: 1,
+//      y: 2
+// }, {
+//      x: 3,
+//      y: 43
+// }
+// ]
+//
 
 /*
  * Return the total duration of a sequence of sessions (hours).
