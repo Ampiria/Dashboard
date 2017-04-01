@@ -1,7 +1,10 @@
 package models
 
 // Standard Library
+import constructs._
+
 import scala.concurrent.Future
+import scala.util.Random
 
 // Play Framework
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
@@ -13,7 +16,7 @@ import reactivemongo.bson.BSONDocument
 
 // Project
 import constructs.User
-import constructs.responses.{ProfilesOnly, AboutMessage, Credentials}
+import constructs.responses.{AboutMessage, Credentials, ProfilesOnly}
 import helpers.Selectors.{emailSelector, usernameSelector}
 
 
@@ -144,4 +147,43 @@ class Users(protected val api: ReactiveMongoApi) {
     ???
   }
 
+  /**
+    *Adds 1000 random users with varying session amounts for demo purposes
+    */
+  protected def bsonSessionsCollection: BSONCollection = api.db.collection[BSONCollection]("sessions")
+  def addRandomUsers(): Unit ={
+    var usr = 0
+    val rand: Random = new Random()
+    for (usr <- 0 to 1000){
+      val randJoined: Long = rand.nextInt(15552000) + 1451624401
+      val user: User = new User(rand.nextString(20),
+        "Example about message",
+        new ContactInfo("John", "Doe", "Francis",
+          rand.nextString(8) + "@gmail.com", "555-555-5555",
+          new Profiles("", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "")),
+        "password", randJoined,
+        new Status(rand.nextBoolean(), "webdev", randJoined - rand.nextInt(7200)),
+        Vector(Subject("webdev", randJoined, "Anything related to web development"), Subject("scala", randJoined, "scala development"),
+          Subject("python", randJoined, "python development")))
+      addNewUser(user)
+      val randSessionNumber = rand.nextInt(9996) + 5
+      var sess = 0
+      val num = 1490846399 - randJoined
+      val randSessStart = rand.nextInt(num.asInstanceOf[Int]) + randJoined
+      val randSessStop = randSessStart + rand.nextInt(18001 - 1200) + 1200
+      for (sess <- 0 to randSessionNumber){
+        val newSession: Session = Session(user.subjects.apply(rand.nextInt(user.subjects.length)).name, randSessStart, randSessStop, "Example session Message")
+        val selector = usernameSelector(user.username)
+        val modifier = BSONDocument(
+          "$push" -> BSONDocument(
+            "sessions" -> newSession
+          )
+        )
+        bsonSessionsCollection.update(selector, modifier, multi = false).map(result =>
+          if (result.ok) ResultInfo.succeedWithMessage("Finished studying")
+          else ResultInfo.failWithMessage(result.errmsg.getOrElse(ResultInfo.noErrMsg)))
+      }
+    }
+  }
 }
+

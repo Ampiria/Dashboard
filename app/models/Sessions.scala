@@ -2,6 +2,7 @@ package models
 
 // Standard Library
 import constructs.responses.{StatusSubjects, StatusSubjectsSessions}
+
 import scala.concurrent.Future
 
 // Play Framework
@@ -203,7 +204,6 @@ class Sessions(protected val mongoApi: ReactiveMongoApi) {
       })
     )
   }
-
 
   /**
     * Removes the given subject from the user's subject list.
