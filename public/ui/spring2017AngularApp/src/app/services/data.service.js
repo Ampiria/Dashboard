@@ -213,6 +213,45 @@
       return res;
     }
 
+    // Compute a list of cumulative study totals
+    function highChartCumulative(sessions, numLevels) {
+
+      // A running total of the hours studied
+      var cumul = 0;
+
+      // Total duration of completed sessions
+      const total = sumRawSessions(sessions);
+
+      const levelSize = total / numLevels;
+
+      var level = 1;
+
+      // List of timestamped cumulative totals
+      var res = [{"x": sessions[0].startTime, "y": 0}];
+
+      sessions.forEach(function (curr, i, arr) {
+
+        // Add the session's duration to the cumulative total
+        cumul += (curr.endTime - curr.startTime) / (3600 * 1000);
+
+        if (cumul >= level * levelSize) {
+
+          // How much the session extends past the level boundary
+          const t = (cumul - level * levelSize) * 3600 * 1000;
+
+          res.push({"x": curr.endTime - t, "y": level * levelSize});
+          level += 1;
+        }
+      });
+
+      // Add the last item in cumuls if needed
+      if (res.length < numLevels + 1) {
+        res.push({"x": sessions[sessions.length - 1].endTime, "y": cumul});
+      }
+
+      return res;
+    }
+
 
     function subjectTotals(sessions) {
 
