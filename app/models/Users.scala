@@ -162,7 +162,7 @@ class Users(protected val api: ReactiveMongoApi) {
           rand.nextString(8) + "@gmail.com", "555-555-5555",
           new Profiles("", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "")),
         "password", randJoined,
-        new Status(rand.nextBoolean(), "webdev", 1490846399 - rand.nextInt(7200)),
+        new Status(rand.nextBoolean(), "webdev", randJoined - rand.nextInt(7200)),
         Vector(Subject("webdev", randJoined, "Anything related to web development"), Subject("scala", randJoined, "scala development"),
           Subject("python", randJoined, "python development")))
       addNewUser(user)

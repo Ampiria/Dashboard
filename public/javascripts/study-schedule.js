@@ -1,3 +1,8 @@
+/*
+* returns a list of suggested time ranges over the following given number of days that is based on the probability that
+* the user is studying given by peak study times
+*/
+
 function createScheduleBasedOnDailyStudyAmounts(user, goal){
     var schedule = [];
     var suggestedAverage = goal.totalStudyAmount/goal.numberOfDays;
