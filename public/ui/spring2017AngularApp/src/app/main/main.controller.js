@@ -131,19 +131,12 @@
     }
 
     vm.toggleSideBar = function () {
+      console.log(vm.hideNavButton);
       $('#wrapper').toggleClass('toggled');
       if (vm.hideNavButton) {
-        setTimeout(function () {
-          $scope.$apply(function () {
-            vm.hideNavButton = false;
-          });
-        }, 100);
+        vm.hideNavButton = !vm.hideNavButton;
       } else {
-        setTimeout(function () {
-          $scope.$apply(function () {
-            vm.hideNavButton = true;
-          });
-        }, 100);
+        vm.hideNavButton = !vm.hideNavButton;
       }
     };
   }

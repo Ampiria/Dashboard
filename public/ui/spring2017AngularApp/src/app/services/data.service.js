@@ -8,12 +8,12 @@
   angular.module('spring2017AngularApp')
     .factory('DataService', DataService);
 
-  function DataService() {
-
+  function DataService(moment) {
 
 
     return {
-      highChartCumulative: highChartCumulative
+      highChartCumulative: highChartCumulative,
+      subjectTotals: subjectTotals
     };
 
 // TODO: Probability distribution of session length (total and per-subject)

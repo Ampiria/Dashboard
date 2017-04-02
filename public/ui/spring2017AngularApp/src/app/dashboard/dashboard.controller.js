@@ -8,12 +8,23 @@
   angular.module('spring2017AngularApp')
     .controller('DashboardController', DashboardController);
 
-  function DashboardController(highStockService, DataService, Restangular) {
+  function DashboardController(highStockService, DataService, Restangular, highChartService) {
     var vm = this;
     vm.stockChartOption = highStockService.getStockChart();
     var changeStockChartOption = highStockService.changeChartOption(vm.stockChartOption);
+    var changeStockHighChartOption = highChartService.changeChartOption(vm.stockChartOption);
     vm.stockChartOption = changeStockChartOption.setXAxisTitle('Time');
     vm.stockChartOption = changeStockChartOption.setChartTitle('Cumulative Hours Study');
+    vm.stockChartOption = changeStockHighChartOption.setToolTipFormatter(function() {
+      return 'Date: ' + new Date(this.x) + '<br>' + 'y: ' + this.y;
+    });
+    vm.subjectTotalOption =  highChartService.getBarChart();
+    var changeSubjectTotalOption = highStockService.changeChartOption(vm.subjectTotalOption);
+    vm.subjectTotalOption = changeSubjectTotalOption.setXAxisTitle("Subjects");
+    vm.subjectTotalOption = changeSubjectTotalOption.setYAxisTitle("Hours");
+    vm.subjectTotalOption = changeSubjectTotalOption.setChartTitle("Total Hours / Subject");
+    // vm.subjectTotalOption = changeSubjectTotalOption.setXAxisCategories(['Math', 'Web Dev', 'Literature', 'Hacking', 'Science']);
+    // vm.subjectTotalOption.xAxis.categories = ['Math', 'Web Dev', 'Literature', 'Hacking', 'Science'];
 
     vm.getCumulativeData = function () {
       Restangular.oneUrl('cumulative', 'http://www.jgdodson.com/json/sessions/jgdodson').get().then(function (resp) {
@@ -36,6 +47,47 @@
         console.log(err);
       });
     };
+
+
+    vm.getSubjectTotalData = function () {
+      Restangular.oneUrl('cumulative', 'http://www.jgdodson.com/json/sessions/jgdodson').get().then(function (resp) {
+        console.log('resp session');
+        console.log(resp.sessions);
+        console.log(resp);
+        var data = [];
+        data = DataService.subjectTotals(resp.sessions);
+
+        console.log("vm.data: ");
+        console.log(data);
+
+        var categories = [];
+        var yValue = [];
+
+        data.forEach(function (value, index) {
+          categories.push(value[0]);
+        });
+
+        data.forEach(function (value, index) {
+          yValue.push(value[1]);
+        });
+
+
+        console.log(yValue);
+        console.log(categories);
+
+        vm.subjectTotalOption.xAxis.categories = categories;
+
+        vm.subjectTotalOption.series = [{
+          name: 'Total Hours/Subject',
+          data: yValue
+        }];
+      }, function (err) {
+        console.log('Error:');
+        console.log(err);
+      });
+    };
+
+    vm.getSubjectTotalData();
     vm.getCumulativeData();
 
 

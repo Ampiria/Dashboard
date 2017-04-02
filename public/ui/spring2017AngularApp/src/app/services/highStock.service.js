@@ -66,6 +66,11 @@
           selected: 1
         },
 
+        tooltip: {
+          valueDecimals: 2
+        },
+
+
         title: {
           text: 'AAPL Stock Price'
         },
@@ -82,11 +87,16 @@
           data: [
             {
               x: 1,
-              y: 2
+              y: 10
             },
-            {
-              x: 23,
-              y: 44
+            { x: 23,
+              y: 20
+            },
+            { x: 63,
+              y: 30
+            },
+            { x: 187,
+              y: 40
             }
           ],
           tooltip: {

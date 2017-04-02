@@ -9,13 +9,20 @@
       return {
         restrict: 'AEC',
         scope: {
-          options: '='
+          options: '=',
+          data: '='
         },
         template: '<div id="interactiveChart" style="width: 100%"></div>',
         link: function (scope, element, attrs) {
+
           console.log('Chart Directive');
           console.log(scope.option);
           Highcharts.chart(element[0], scope.options);
+
+          scope.$watch("data", function (oldValue, newValue) {
+            scope.options.series = newValue;
+            var chart = Highcharts.chart(element[0], scope.options);
+          });
         }
       };
     });
@@ -36,6 +43,7 @@
             colors: ['#2b908f', '#90ee7e', '#f45b5b', '#7798BF', '#aaeeee', '#ff0066', '#eeaaee',
               '#55BF3B', '#DF5353', '#7798BF', '#aaeeee'],
             chart: {
+              type: 'scatter',
               backgroundColor: {
                 linearGradient: { x1: 0, y1: 0, x2: 1, y2: 1 },
                 stops: [
@@ -99,6 +107,9 @@
               backgroundColor: 'rgba(0, 0, 0, 0.85)',
               style: {
                 color: '#F0F0F0'
+              },
+              formatter: function () {
+                return 'x: ' + this.x + '<br>' + 'y' + this.y;
               }
             },
             plotOptions: {
