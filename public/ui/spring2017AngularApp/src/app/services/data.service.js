@@ -13,7 +13,8 @@
 
     return {
       highChartCumulative: highChartCumulative,
-      subjectTotals: subjectTotals
+      subjectTotals: subjectTotals,
+      highChartProbability: highChartProbability
     };
 
 // TODO: Probability distribution of session length (total and per-subject)
@@ -487,6 +488,40 @@
       return bins;
     }
 
+    function highChartProbability(sessions) {
+
+      var bins = [];
+
+      numBins = 100;
+
+      dayGroups = splitDays(sessions)
+
+      for (var i = 0; i < numBins; i++) {
+        bins.push(0);
+      }
+
+      dayGroups.forEach(function (dayGroup, i, arr) {
+        dayGroup['sessions'].forEach(function (session, j, arr) {
+
+          const upperBound = dayGroup['date'].clone();
+          const lowerBound = dayGroup['date'].clone().startOf('day');
+
+          const startBin = Math.floor((session.start - lowerBound) * numBins / (upperBound - lowerBound));
+          const stopBin = Math.floor((session.stop - lowerBound) * numBins / (upperBound - lowerBound));
+
+          for (var b = startBin; b < stopBin; b++) {
+            bins[b] += 1;
+          }
+        });
+      });
+
+      // Normalize
+      bins.forEach(function (curr, i, arr) {
+        bins[i] = curr / dayGroups.length;
+      });
+
+      return bins;
+    }
 
   }
 
