@@ -5,6 +5,7 @@
   angular
     .module('spring2017AngularApp')
     .constant('malarkey', malarkey)
-    .constant('moment', moment);
+    .constant('moment', moment)
+  ;
 
 })();

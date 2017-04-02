@@ -101,8 +101,6 @@
       });
     };
 
-    getData();
-
     function getData() {
       Restangular.oneUrl('data', 'http://www.jgdodson.com/json/sessions/bobby').get().then(function (resp) {
         console.log("Data: ");
