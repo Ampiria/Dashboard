@@ -28,7 +28,7 @@ function bestUserMatch(selectedUser, usersInScope){
     }else{
         subjectMatch = subjectOverlap(selectedUser.studying, usersInScope);
     }
-
+domain name registrar
     for each (var user in subjectMatch){
         var currentComparison = studyTimesOverlap([selectedUser, user]);
         var currentComparisonSum = 0;
@@ -102,3 +102,4 @@ function locationOverlap(location, users){
     }
     return matchedUsers;
 }
+
