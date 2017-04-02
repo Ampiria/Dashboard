@@ -1,5 +1,8 @@
-<high-stock data="vm.stockChartOption.series" options="vm.stockChartOption" style="width: 82%;"></high-stock>
+<high-stock redraw="vm.redrawCumulativeChart" data="vm.stockChartOption.series" options="vm.stockChartOption" style="width: 82%;"></high-stock>
 <div style="margin-top: 3%">
-  <high-chart data="vm.subjectTotalOption.series" options="vm.subjectTotalOption" style="width: 82%;"></high-chart>
+  <high-chart redraw="vm.redrawSubjectTotalChart" data="vm.subjectTotalOption.series" options="vm.subjectTotalOption" style="width: 82%;"></high-chart>
+</div>
+<div style="margin-top: 3%">
+  <high-chart redraw="vm.redrawHighProbChart" data="vm.highProbOption.series" options="vm.highProbOption" style="width: 82%;"></high-chart>
 </div>
 

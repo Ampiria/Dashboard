@@ -46,16 +46,38 @@
 
         <li style="margin-top: 20%">
           <div class="text-center" style="">
-            <button type="button" class="btn btn-sm btn-info" ng-click="main.logInModal()"> <span class="fa fa-sign-in" ></span> Login</button>
-            <button type="button" class="btn btn-sm btn-info" ng-click="main.registerModal()"> <span class="fa fa-registered" aria-hidden="true"></span> Register</button>
-            <div class="text-center" style="color: white; margin-top: 10px">
-              <button type="button"  data-toggle="collapse" data-target="#demo"
-                      ng-class="['btn', 'btn-lg', {'btn-info': main.startButtonBoolean}, {'btn-danger': !main.startButtonBoolean}]"
-                      ng-click="main.clickStart()" style="width: 70%;" ng-cloak>
-                {{main.startStopButton}}<span style="font-size: large" ng-show="main.displayTime"> {{main.hour}}H : {{main.minute}}M : {{main.second}}s</span>
-              </button>
+            <div ng-hide="main.switchToLogIn">
+              <button type="button" class="btn btn-sm btn-info" ng-click="main.logInModal()"> <span class="fa fa-sign-in" ></span> Login</button>
+              <button type="button" class="btn btn-sm btn-info" ng-click="main.registerModal()"> <span class="fa fa-registered" aria-hidden="true"></span> Register</button>
+              <div class="text-center" style="color: white; margin-top: 10px">
+                <!--<button type="button"  data-toggle="collapse" data-target="#demo"-->
+                <!--ng-class="['btn', 'btn-lg', {'btn-info': main.startButtonBoolean}, {'btn-danger': !main.startButtonBoolean}]"-->
+                <!--ng-click="main.clickStart()" style="width: 70%;" ng-cloak>-->
+                <!--{{main.startStopButton}}<span style="font-size: large" ng-show="main.displayTime"> {{main.hour}}H : {{main.minute}}M : {{main.second}}s</span>-->
+                <!--</button>-->
 
-              <div id="demo" class="collapse" style="color: white;">
+                <div class="btn-group" uib-dropdown>
+                  <button type="button"
+                          ng-class="['btn', 'btn-lg', {'btn-info': main.startButtonBoolean}, {'btn-danger': !main.startButtonBoolean}]"
+                          ng-click="main.clickStart()" style="" ng-cloak>
+                    {{main.startStopButton}}<span style="font-size: large" ng-show="main.displayTime"> {{main.hour}}H : {{main.minute}}M : {{main.second}}s</span>
+                  </button>
+                  <button type="button"
+                          ng-class="['btn', 'btn-lg', {'btn-info': main.startButtonBoolean}, {'btn-danger': !main.startButtonBoolean}]"
+                          uib-dropdown-toggle
+                          ng-show="main.startButtonBoolean">
+                    <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="split-button">
+                    <li role="menuitem" ><a href="/dashBoard" ng-click="main.clickStart()">Python</a></li>
+                    <li role="menuitem" ><a href="#" ng-click="main.clickStart()">C++</a></li>
+                    <li role="menuitem" ><a href="#" ng-click="main.clickStart()">Webdev</a></li>
+                    <li role="menuitem" ><a href="#" ng-click="main.clickStart()">Machine Learning</a></li>
+                  </ul>
+                </div>
+
+                <div id="demo" class="collapse" style="color: white;">
+                </div>
               </div>
             </div>
             <p style="">
@@ -72,7 +94,7 @@
           <a ui-sref="home.studyMatching" ui-sref-active="active" style="font-size: 17px"> <i class="fa fa-users" style="color: #FFFFAD;"> </i> Study Matching</a>
         </li>
         <li>
-          <a href="#" style="font-size: 17px"> <i class="fa fa-line-chart" style="color: #4AA02C;"></i> My Goals</a>
+          <a ui-sref="home.MyGoals" ui-sref-active="active" style="font-size: 17px"> <i class="fa fa-line-chart" style="color: #4AA02C;"></i> My Goals</a>
         </li>
 
 
@@ -93,6 +115,8 @@
 
 
 <script src="../bower_components/highcharts/highstock.js"></script>
+<script src="../bower_components/highcharts/highcharts-more.js"></script>
+<script src="../bower_components/highcharts/modules/solid-gauge.js"></script>
 
 
 <!-- build:js(src) scripts/vendor.js -->

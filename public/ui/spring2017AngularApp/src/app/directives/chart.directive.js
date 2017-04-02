@@ -10,18 +10,21 @@
         restrict: 'AEC',
         scope: {
           options: '=',
-          data: '='
+          data: '=',
+          redraw: '='
         },
         template: '<div id="interactiveChart" style="width: 100%"></div>',
         link: function (scope, element, attrs) {
 
           console.log('Chart Directive');
-          console.log(scope.option);
+          console.log(scope.options);
           Highcharts.chart(element[0], scope.options);
 
-          scope.$watch("data", function (oldValue, newValue) {
-            scope.options.series = newValue;
-            var chart = Highcharts.chart(element[0], scope.options);
+          scope.$watch("redraw", function (oldValue, newValue) {
+            if (scope.redraw) {
+              var chart = Highcharts.chart(element[0], scope.options);
+              scope.redraw = false;
+            }
           });
         }
       };
@@ -33,7 +36,8 @@
         restrict: 'AEC',
         scope: {
           options: '=',
-          data: '='
+          data: '=',
+          redraw: '='
         },
         template: '<div id="stockChart" style="width: 100%;"></div>',
         link: function (scope, element, attrs) {
@@ -246,9 +250,11 @@
           Highcharts.setOptions(Highcharts.theme);
           var chart = Highcharts.stockChart(element[0], scope.options);
 
-          scope.$watch("data", function (oldValue, newValue) {
-            scope.options.series = newValue;
-            var chart = Highcharts.stockChart(element[0], scope.options);
+          scope.$watch("redraw", function (oldValue, newValue) {
+            if (scope.redraw) {
+              var chart = Highcharts.stockChart(element[0], scope.options);
+              scope.redraw = false;
+            }
           });
         }
       };

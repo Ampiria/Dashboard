@@ -134,13 +134,12 @@
     function getClickAddChart() {
       return {
         chart: {
-          type: 'scatter',
-          margin: [70, 50, 60, 80],
+          type: 'column',
           events: {
             click: function (e) {
               // find the clicked values and the series
-              var x = e.xAxis[0].value,
-                y = e.yAxis[0].value,
+              var x = Math.round(e.xAxis[0].value),
+                y = Math.round(e.yAxis[0].value),
                 series = this.series[0];
 
               // Add it
@@ -150,7 +149,7 @@
           }
         },
         title: {
-          text: 'User supplied data'
+          text: 'My Goal'
         },
         subtitle: {
           text: ''
@@ -159,18 +158,23 @@
           enabled: false
         },
         xAxis: {
+          // type: 'datetime',
           gridLineWidth: 1,
+          min: 0,
+          max: 20,
           minPadding: 0.2,
           maxPadding: 0.2,
           maxZoom: 60,
           title: {
-            text: 'Time'
+            text: 'Days'
           }
         },
         yAxis: {
           title: {
-            text: 'Value'
+            text: 'Hours'
           },
+          min: 0,
+          max: 24,
           minPadding: 0.2,
           maxPadding: 0.2,
           maxZoom: 60,
@@ -200,8 +204,15 @@
             }
           }
         },
+        tooltip: {
+          formatter: function () {
+            return this.x + ' Days from now ' + '<br>' + 'Study ' + this.y + ' Hours';
+          }
+        },
         series: [{
-          data: [[20, 20], [80, 80]]
+          name: 'Goal',
+          data: [{
+          }]
         }]
       }
     }

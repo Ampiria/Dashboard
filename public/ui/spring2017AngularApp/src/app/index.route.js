@@ -26,9 +26,16 @@
         controller: 'StudyMatchingController',
         controllerAs: 'vm'
       })
+      .state('home.MyGoals', {
+        url: 'MyGoals',
+        templateUrl: 'app/myGoal/my-goal.html',
+        controller: 'MyGoalController',
+        controllerAs: 'vm'
+      })
+
     ;
 
-    $urlRouterProvider.otherwise('/');
+    $urlRouterProvider.otherwise('/dashboard');
   }
 
 })();

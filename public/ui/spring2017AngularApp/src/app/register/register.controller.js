@@ -4,7 +4,7 @@
 
 
 (function () {
-  'use strict';http://localhost:3000/#/
+  'use strict';
 
   angular.module('spring2017AngularApp')
     .controller('RegisterController', RegisterController)

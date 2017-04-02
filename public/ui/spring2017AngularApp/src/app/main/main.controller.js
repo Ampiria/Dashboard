@@ -16,6 +16,7 @@
     vm.startButtonBoolean = true;
 
     vm.displayTime = false;
+    vm.switchToLogIn = false;
 
     vm.classAnimation = 'pulse';
     vm.creationDate = 1491050677551;
@@ -32,60 +33,113 @@
     vm.minute = 0;
     vm.second = 0;
 
+    var logInModalInstance = {};
+    vm.userName = 'jgdodson';
+    vm.userPassword = '';
+    vm.userSubjects = [];
 
+    // vm.closeModal = function () {
+    //   $uibModalInstance.dismiss('cancel');
+    // };
 
+    vm.logIn = function () {
+      console.log(vm.userName);
+      console.log(vm.userPassword);
+      vm.switchToLogIn = true;
+      console.log("vm.logInModalInstance");
+      console.log(logInModalInstance);
+      Restangular.oneUrl('login', 'http://www.jgdodson.com/json/sessions/' + vm.userName).get().then(function (resp) {
+        console.log("resp");
+        console.log(resp);
+        vm.userSubjects = resp.subjects;
+        console.log("vm.userSubjects");
+        console.log(vm.userSubjects);
+
+      }, function (err) {
+        console.log("err");
+        console.log(err);
+      });
+    };
     // getData();
     //
     // activate();
 
     vm.clickStart = function () {
-      vm.startButtonBoolean = !vm.startButtonBoolean;
       if (vm.startStopButton === 'Start') {
-        vm.startStopButton = 'Stop';
-        vm.displayTime = true;
+        Restangular.oneUrl('start', 'http://www.jgdodson.com/study/queryStart').get({
+          username: vm.userName,
+          subject: 'python'
+        }).then(function (resp) {
+          console.log('resp start');
+          console.log(resp);
+          if  (true) {
+            vm.startButtonBoolean = !vm.startButtonBoolean;
+            vm.startStopButton = 'Stop';
+            vm.displayTime = true;
 
-        vm.setInterval = setInterval(function () {
-          $scope.$apply(function () {
-            vm.second ++;
+            vm.setInterval = setInterval(function () {
+              $scope.$apply(function () {
+                vm.second ++;
 
-            if (vm.second > 59) {
-              vm.second = 0;
-              vm.minute ++;
-            }
+                if (vm.second > 59) {
+                  vm.second = 0;
+                  vm.minute ++;
+                }
 
-            if (vm.minute > 59) {
-              vm.minute = 0;
-              vm.hour ++;
-            }
+                if (vm.minute > 59) {
+                  vm.minute = 0;
+                  vm.hour ++;
+                }
 
-            // vm.time = " " + vm.hour + "h : " + vm.minute + "m : " + vm.second + "s";
-          });
-        }, 1000);
+                // vm.time = " " + vm.hour + "h : " + vm.minute + "m : " + vm.second + "s";
+              });
+            }, 1000);
+
+          }
+        }, function (err) {
+          console.log('Error:');
+          console.log(err);
+        });
+
       } else {
         vm.hour = 0;
         vm.minute = 0;
         vm.second = 0;
         clearInterval(vm.setInterval);
+        vm.startButtonBoolean = !vm.startButtonBoolean;
         vm.displayTime = false;
         vm.startStopButton = 'Start';
+        Restangular.oneUrl('start', 'http://www.jgdodson.com/study/queryStop').get({
+          username: vm.userName,
+          message: 'python'
+        }).then(function (resp) {
+          console.log('resp start');
+          console.log(resp);
+        }, function (err) {
+          console.log('Error:');
+          console.log(err);
+        });
       }
       console.log('Clicked');
     };
 
     vm.logInModal = function () {
-      $uibModal.open({
+      logInModalInstance = openModal();
+    };
+
+    function openModal() {
+      return $uibModal.open({
         animation: true,
         ariaLabelledBy: 'Login',
         ariaDescribedBy: 'modal-body',
         templateUrl: 'app/login/login-modal.html',
-        controller: 'LogInController',
+        controller: 'MainController',
         controllerAs: 'vm',
         size: 'lg',
-        scope: $scope,
         resolve: {
         }
       });
-    };
+    }
 
     vm.registerModal = function () {
       var modalInstance = $uibModal.open({

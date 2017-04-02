@@ -490,9 +490,9 @@
 
       var bins = [];
 
-      numBins = 100;
+      var numBins = 100;
 
-      dayGroups = splitDays(sessions)
+      var dayGroups = splitDays(sessions)
 
       for (var i = 0; i < numBins; i++) {
         bins.push(0);

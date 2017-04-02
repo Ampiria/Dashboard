@@ -18,6 +18,7 @@
     vm.stockChartOption = changeStockHighChartOption.setToolTipFormatter(function() {
       return 'Date: ' + new Date(this.x) + '<br>' + 'y: ' + this.y;
     });
+
     vm.subjectTotalOption =  highChartService.getBarChart();
     var changeSubjectTotalOption = highStockService.changeChartOption(vm.subjectTotalOption);
     vm.subjectTotalOption = changeSubjectTotalOption.setXAxisTitle("Subjects");
@@ -26,70 +27,101 @@
     // vm.subjectTotalOption = changeSubjectTotalOption.setXAxisCategories(['Math', 'Web Dev', 'Literature', 'Hacking', 'Science']);
     // vm.subjectTotalOption.xAxis.categories = ['Math', 'Web Dev', 'Literature', 'Hacking', 'Science'];
 
+    vm.highProbOption = highStockService.getStockChart();
+    var changeHighProbOption  = highChartService.changeChartOption(vm.highProbOption);
+    vm.highProbOption = changeHighProbOption.setXAxisTitle('Hours');
+    vm.highProbOption = changeHighProbOption.setYAxisTitle('Probability');
+    vm.highProbOption = changeHighProbOption.setChartTitle('High Probability Studying');
+    vm.highProbOption = changeHighProbOption.setToolTipFormatter(function() {
+      return 'Hours: ' + this.x + '<br>' + 'Probability: ' + this.y + ' %';
+    });
+
+    vm.redrawCumulativeChart = false;
+    vm.redrawSubjectTotalChart = false;
+
     vm.getCumulativeData = function () {
       Restangular.oneUrl('cumulative', 'http://www.jgdodson.com/json/sessions/jgdodson').get().then(function (resp) {
         console.log('resp session');
         console.log(resp.sessions);
         console.log(resp);
-        vm.data = DataService.highChartCumulative(resp.sessions, 100);
+        vm.resp = resp;
+        var data = DataService.highChartCumulative(resp.sessions, 100);
         // vm.data.forEach(function (value, index) {
         //   value.x = new Data(value.x);
         // });
         vm.stockChartOption.series = [{
           name: 'Cumulative Hours',
-          data: vm.data,
+          data: data,
           tooltip: {
             valueDecimals: 2
           }
         }];
+        vm.redrawCumulativeChart = true;
+        vm.getSubjectTotalData();
+        getHighPropData();
       }, function (err) {
         console.log('Error:');
         console.log(err);
       });
     };
+
+    function getHighPropData() {
+      var data = [];
+      data = DataService.highChartProbability(vm.resp.sessions);
+
+      console.log("vm.data: ");
+      console.log(data);
+
+      var result = [];
+
+      data.forEach(function (value, index) {
+        result.push({
+          x: index,
+          y: value
+        })
+      });
+
+
+      vm.highProbOption.series = [{
+        name: 'Probability Studying',
+        data: result
+      }];
+
+      vm.redrawHighProbChart = true;
+    }
 
 
     vm.getSubjectTotalData = function () {
-      Restangular.oneUrl('cumulative', 'http://www.jgdodson.com/json/sessions/jgdodson').get().then(function (resp) {
-        console.log('resp session');
-        console.log(resp.sessions);
-        console.log(resp);
-        var data = [];
-        data = DataService.subjectTotals(resp.sessions);
+      var data = [];
+      data = DataService.subjectTotals(vm.resp.sessions);
 
-        console.log("vm.data: ");
-        console.log(data);
+      console.log("vm.data: ");
+      console.log(data);
 
-        var categories = [];
-        var yValue = [];
+      var categories = [];
+      var yValue = [];
 
-        data.forEach(function (value, index) {
-          categories.push(value[0]);
-        });
-
-        data.forEach(function (value, index) {
-          yValue.push(value[1]);
-        });
-
-
-        console.log(yValue);
-        console.log(categories);
-
-        vm.subjectTotalOption.xAxis.categories = categories;
-
-        vm.subjectTotalOption.series = [{
-          name: 'Total Hours/Subject',
-          data: yValue
-        }];
-      }, function (err) {
-        console.log('Error:');
-        console.log(err);
+      data.forEach(function (value, index) {
+        categories.push(value[0]);
       });
+
+      data.forEach(function (value, index) {
+        yValue.push(value[1]);
+      });
+
+
+      console.log(yValue);
+      console.log(categories);
+
+      vm.subjectTotalOption.xAxis.categories = categories;
+
+      vm.subjectTotalOption.series = [{
+        name: 'Total Hours/Subject',
+        data: yValue
+      }];
+      vm.redrawSubjectTotalChart = true;
     };
 
-    vm.getSubjectTotalData();
     vm.getCumulativeData();
-
-
   }
 })();
