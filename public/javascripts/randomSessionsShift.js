@@ -1,12 +1,15 @@
 function randomSessionShift(sessions){
+    var modifiedSessions = [];
     for each(var session in sessions){
         var shift = Math.random >= 0.5;
         if(shift){
-            shift(Math.random(), session);
+            modifiedSessions.push(shift(Math.random(), session));
         }else{
-            scale(Math.random(), session);
+            modifiedSessions.push(scale(Math.random(), session));
         }
     }
+
+    return sessions;
 }
 
 function shift(intensity, session){
@@ -20,6 +23,8 @@ function shift(intensity, session){
         session["starttime"] += randomShift;
         session["stoptime"] += randomShift;
     }
+
+    return session;
 }
 
 function scale(intensity, session){
@@ -33,4 +38,6 @@ function scale(intensity, session){
         session["starttime"] += randomScale;
         session["stoptime"] -= randomScale;
     }
+
+    return session;
 }
