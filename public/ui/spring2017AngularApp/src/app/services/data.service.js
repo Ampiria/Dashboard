@@ -13,7 +13,7 @@
 
 
     return {
-
+      highChartCumulative: highChartCumulative
     };
 
 // TODO: Probability distribution of session length (total and per-subject)

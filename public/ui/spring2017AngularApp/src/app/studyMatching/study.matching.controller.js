@@ -7,9 +7,7 @@
   angular.module('spring2017AngularApp')
     .controller('StudyMatchingController', StudyMatchingController);
 
-  function StudyMatchingController() {
+  function StudyMatchingController(highStockService) {
     var vm = this;
-
-
   }
 })();

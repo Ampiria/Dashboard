@@ -19,7 +19,7 @@
   <!-- endinject -->
   <!-- endbuild -->
 </head>
-<body ng-app="spring2017AngularApp" >
+<body ng-app="spring2017AngularApp">
 <!--[if lt IE 10]>
 <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 <![endif]-->
@@ -29,11 +29,11 @@
 <div id="wrapper" class="toggled" ng-controller="MainController as main">
   <link href="https://fonts.googleapis.com/css?family=Revalia" rel="stylesheet">
   <!-- Sidebar -->
-  <div class="col-md-9">
+  <div class="col-md-3 col-lg-3">
     <div id="sidebar-wrapper">
       <ul class="sidebar-nav">
         <div class="" style="margin-left: 10px; margin-bottom: 20px">
-          <button class="btn btn-success" ng-click="main.toggleSideBar()"> <i class="fa fa-bars"></i> </button>
+          <button class="btn btn-success pull-right" ng-click="main.toggleSideBar()"> <i class="fa fa-bars"></i> </button>
         </div>
 
         <li class="sidebar-brand text-center" style="clear: both;">
@@ -44,28 +44,26 @@
           </a>
         </li>
 
-          <li style="margin-top: 20%">
-            <div class="text-center" style="">
-              <p class="animate infinite" ng-class="">
-                <button type="button" class="btn btn-sm btn-info" ng-click="main.logInModal()"> <span class="fa fa-sign-in" ></span> Login</button>
-                <button type="button" class="btn btn-sm btn-info" ng-click="main.registerModal()"> <span class="fa fa-registered" aria-hidden="true"></span> Register</button>
-              <div class="text-center" style="color: white; margin-top: 10px">
-                <button type="button"  data-toggle="collapse" data-target="#demo"
-                        ng-class="['btn', 'btn-lg', {'btn-info': main.startButtonBoolean}, {'btn-danger': !main.startButtonBoolean}]"
-                        ng-click="main.clickStart()" style="width: 70%;">
-                  {{main.startStopButton}}<span style="font-size: large" ng-show="main.displayTime"> {{main.hour}}H : {{main.minute}}M : {{main.second}}s</span>
-                </button>
+        <li style="margin-top: 20%">
+          <div class="text-center" style="">
+            <button type="button" class="btn btn-sm btn-info" ng-click="main.logInModal()"> <span class="fa fa-sign-in" ></span> Login</button>
+            <button type="button" class="btn btn-sm btn-info" ng-click="main.registerModal()"> <span class="fa fa-registered" aria-hidden="true"></span> Register</button>
+            <div class="text-center" style="color: white; margin-top: 10px">
+              <button type="button"  data-toggle="collapse" data-target="#demo"
+                      ng-class="['btn', 'btn-lg', {'btn-info': main.startButtonBoolean}, {'btn-danger': !main.startButtonBoolean}]"
+                      ng-click="main.clickStart()" style="width: 70%;" ng-cloak>
+                {{main.startStopButton}}<span style="font-size: large" ng-show="main.displayTime"> {{main.hour}}H : {{main.minute}}M : {{main.second}}s</span>
+              </button>
 
-                <div id="demo" class="collapse" style="color: white;">
-                </div>
+              <div id="demo" class="collapse" style="color: white;">
               </div>
-              </p>
-              <p style="">
-                <acme-malarkey extra-values="['Quick', 'Adaptive', 'Flexible']"></acme-malarkey>
-              </p>
             </div>
+            <p style="">
+              <acme-malarkey extra-values="['Quick', 'Adaptive', 'Flexible']"></acme-malarkey>
+            </p>
+          </div>
 
-          </li>
+        </li>
 
         <li>
           <a ui-sref="home.dashboard" ui-sref-active="active" style="font-size: 17px"><i class="fa fa-superpowers" style="color: #00b3ee;"></i> Dashboard </a>
@@ -83,18 +81,18 @@
         <!--</li>-->
       </ul>
     </div>
-    <div style="" ng-hide="main.hideNavButton">
+    <div style="float: left" ng-hide="main.hideNavButton" >
       <button class="btn btn-success" ng-click="main.toggleSideBar()"> <i class="fa fa-bars"></i> </button>
     </div>
   </div>
-  <div class="col-md-9">
-    <div ui-view></div>
+  <div class="col-md-9 col-lg-9" style="margin-left: 2%">
+    <div ui-view style="width: 100%;"></div>
   </div>
 </div>
 <!-- /#wrapper -->
 
 
-
+<script src="../bower_components/highcharts/highstock.js"></script>
 
 
 <!-- build:js(src) scripts/vendor.js -->

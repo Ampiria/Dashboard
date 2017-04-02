@@ -31,6 +31,13 @@
         email: vm.userEmail
       };
 
+      //Check Form here
+
+      //To do
+
+      //End checking form
+
+
       Restangular.oneUrl('register', 'http://www.jgdodson.com/users/queryAdd').get(criteria).then(function (resp) {
         console.log('Response: ');
         console.log(resp);
